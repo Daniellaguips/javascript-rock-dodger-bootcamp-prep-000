@@ -30,7 +30,7 @@ function checkCollision(rock) {
      if ((rockLeft <= dodgerLeft && rockRight >= dodgerLeft) 
      || (rockLeft >= dodgerLeft && rockRight <= dodgerRight) 
      || (rockLeft <= dodgerRight && rockRight >= dodgerRight)){
-       return true
+       return endGame()
      }
     }  
     if (top <= 360){
@@ -58,7 +58,7 @@ function createRock(x) {
   function moveRock() {
     rock.style.top = `${top += 2}px`
     
-    if (top < GAME_HEIGHT){
+    if (top < 400 ){
       window.requestAnimationFrame(moveRock)
     } else {
       rock.remove() 
@@ -71,7 +71,12 @@ function createRock(x) {
   return rock
 }
 
-
+/**
+ * End the game by clearing `gameInterval`,
+ * removing all ROCKS from the DOM,
+ * and removing the `moveDodger` event listener.
+ * Finally, alert "YOU LOSE!" to the player.
+ */
 function endGame() {
   clearInterval(gameInterval)
   ROCKS.forEach(function(rock) { rock.remove() })
